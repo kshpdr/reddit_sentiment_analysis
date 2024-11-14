@@ -56,12 +56,18 @@ def save_to_csv(data, filename):
             ]
             writer.writerow(row)
 
-if __name__ == '__main__':
-    subreddit = 'gatech'
-    years = 3
-    months = years * 12
-    filename = '../data/reddit_posts.csv'
+import argparse
 
-    posts = fetch_posts(subreddit, months)
-    save_to_csv(posts, filename)
-    print(f"Data saved to {filename}")
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Fetch and save Reddit posts.')
+    parser.add_argument('subreddit', type=str, help='The subreddit to fetch posts from')
+    parser.add_argument('years', type=int, help='The number of years of posts to fetch')
+    parser.add_argument('filename', type=str, help='The filename to save the posts to')
+
+    args = parser.parse_args()
+
+    months = args.years * 12
+
+    posts = fetch_posts(args.subreddit, months)
+    save_to_csv(posts, args.filename)
+    print(f"Data saved to {args.filename}")
