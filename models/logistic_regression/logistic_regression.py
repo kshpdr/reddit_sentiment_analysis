@@ -1,9 +1,15 @@
+import os
 import joblib
 
 def logistic_regression_sentiment(text):
-    vectorizer = joblib.load('/Users/koselev/howisgt.life/reddit-sentiment-analysis/models/logistic_regression_vectorizer.pkl')
+    current_dir = os.path.dirname(__file__)
+    
+    vectorizer_path = os.path.join(current_dir, 'logistic_regression_vectorizer.pkl')
+    model_path = os.path.join(current_dir, 'logistic_regression_model.pkl')
+
+    vectorizer = joblib.load(vectorizer_path)
     text_vectorized = vectorizer.transform([text])
-    model = joblib.load('/Users/koselev/howisgt.life/reddit-sentiment-analysis/models/logistic_regression_model.pkl')
+    model = joblib.load(model_path)
     predicted_sentiment = model.predict(text_vectorized)
     return predicted_sentiment[0]
 
