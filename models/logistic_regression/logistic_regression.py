@@ -11,7 +11,7 @@ def logistic_regression_sentiment(text):
     text_vectorized = vectorizer.transform([text])
     model = joblib.load(model_path)
     predicted_sentiment = model.predict(text_vectorized)
-    return predicted_sentiment[0]
+    return int(predicted_sentiment[0])
 
 if __name__ == "__main__":
     test_text_1 = "Why does Skiles smell like vomit | Selftext: It’s been smelling like that for the past month or two. | Flair: Rant"
